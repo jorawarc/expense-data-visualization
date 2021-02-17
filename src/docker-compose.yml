@@ -1,0 +1,27 @@
+version: "3.7"
+
+services:
+  backend:
+    image: "node:14.15.0"
+    container_name: "nodejs"
+    user: "node"
+    working_dir: /home/node/app
+    depends_on:
+      - database
+    restart: always
+    volumes:
+      - ./controller:/home/node/app
+    ports:
+      - "3000:3000"
+    environment:
+      - "MONGO_URI=mongo"
+      - "PORT=3000"
+    command: "npm start"
+  database:
+    image: "mongo:latest"
+    restart: always
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo-volume:/data/db

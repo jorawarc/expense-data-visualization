@@ -1,0 +1,32 @@
+POST http://localhost:3000/fetch
+Content-Type: application/json
+
+{
+  "filter": {"caucus": "Conservative"},
+  "expense": {"hospitality": 0, "contract":  0, "travel":  0}
+
+}
+
+###
+
+POST http://localhost:3000/fetch
+Content-Type: application/json
+
+{
+  "filter": {"_id": ["6022e0ad83d60f2f14f9371d", "6022e0ad83d60f2f14f9371c"]},
+  "expense": {"hospitality": 0, "contract":  0, "travel": 0}
+
+}
+
+###
+
+POST http://localhost:3000/fetch
+Content-Type: application/json
+
+{
+  "filter": {},
+  "expense": {"travel": 3, "hospitality": 0, "contract":  0}
+
+}
+
+###
