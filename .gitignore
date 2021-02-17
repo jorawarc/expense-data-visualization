@@ -1,0 +1,9 @@
+.idea/
+src/mongo-volume/
+venv/
+src/**/node_modules
+src/**/package-lock.json
+src/**/.parcel-cache
+src/**/dist
+**/*.log
+**/__pycache__
