@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 const express = require('express');
+const cors = require('cors');
 const MP = require('./models/Member');
 const app = express();
 
 const PORT = process.env.PORT;
+app.use(cors());
 app.use(express.json());
 
 
@@ -19,6 +21,14 @@ app.post('/fetch', async (req, res) => {
     console.log(req.body);
     try{
         const mp = await MP.find(req.body.filter, {...req.body.expense, "member_id": 0});
+        const aggregation = await MP.aggregate([
+            {
+                $group: {
+                    _id: '$caucus',
+                    totalSalary: {$sum: '$salaries'}
+                }
+            }
+        ])
         res.json(mp);
     } catch (e) {
         console.log(e);
