@@ -1,5 +1,7 @@
 import React from "react";
 import UserInput from "./UserInput";
+import BarChartComponent from "./BarChartComponent";
+
 import fetch from './API'
 import ReactDOM from 'react-dom'
 
@@ -7,31 +9,34 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.setExpenses = this.setExpenses.bind(this)
-        this.state = {};
+        this.state = {params: {}, data: {}};
+    }
+
+    componentDidMount() {
+        fetch({}, {}).then(async (data) => {
+            await this.setState({data: data})
+        })
     }
 
     setExpenses(name, value) {
-        console.log(name, value, this.state)
         if (value) {
-            delete this.state[name]
-            this.setState(this.state, async () => {
-                const data = await fetch({}, this.state)
-                console.log(data)
-            })
+            delete this.state["params"][name]
         }
-        else
-        {
-            this.setState({[name]: +value}, async () => {
-                const data = await fetch({}, this.state)
-                console.log(data)
-            })
+        else {
+            this.state.params[name] = +value
         }
+        this.setState(this.state, async () => {
+            const data = await fetch({}, this.state.params)
+            this.state.data = data
+            await this.setState(this.state)
+        })
     }
 
     render() {
         return (
             <div>
                 <UserInput onUserInputChange={this.setExpenses}/>
+                <BarChartComponent data={this.state.data}/>
             </div>
         );
     }

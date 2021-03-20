@@ -10,7 +10,6 @@ const client = axios.create({
 
 const fetch = async (filter, expense) => {
     try {
-        console.log(filter, expense)
         const response = await client.post('/fetch', {filter: filter, expense: expense})
         return response.data
     } catch (e) {

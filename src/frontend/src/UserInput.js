@@ -8,7 +8,7 @@ class UserInput extends React.Component {
         this.state = {hospitality: true, travel: true, contract: true};
     };
 
-    handleChange(e, isChecked, value) {
+    handleChange(e, isChecked) {
         this.setState({[e.target.name]: isChecked})
         this.props.onUserInputChange(e.target.name, isChecked);
     }
