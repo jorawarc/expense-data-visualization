@@ -18,4 +18,24 @@ const fetch = async (filter, expense) => {
     }
 }
 
+const caucusAverage = async () => {
+    try {
+        const response = await client.get('/avg-group')
+        return response.data
+    } catch (e) {
+        console.log(e)
+        return null
+    }
+}
+
+const caucusTotal = async () => {
+    try {
+        const response = await client.get('/sum-group')
+        return response.data
+    } catch (e) {
+        console.log(e)
+        return null
+    }
+}
+
 export default fetch

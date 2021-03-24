@@ -35,8 +35,6 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <UserInput onUserInputChange={this.setExpenses}/>
-                <BarChartComponent data={this.state.data}/>
             </div>
         );
     }
