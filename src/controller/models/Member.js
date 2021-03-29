@@ -7,10 +7,13 @@ const MPSchema = new Schema({
     memberID: {type: String, unique: true},
     salaries: {type: Number},
     constituency: String,
-    caucus: String,
-    travel: Array,
-    hospitality: Array,
-    contract: Array,
+    total_travel: {type: Number},
+    total_hospitality: {type: Number},
+    total_contracts: {type: Number},
+    caucus: {type: String},
+    travel: {type: Array},
+    hospitality: {type: Array},
+    contract: {type: Array},
 }, {collection: 'MP'})
 
 

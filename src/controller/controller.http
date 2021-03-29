@@ -10,6 +10,11 @@ Content-Type: application/json
 
 ###
 
+GET http://localhost:3000/top-spenders
+Content-Type: application/json
+
+###
+
 
 GET http://localhost:3000/avg-group
 Content-Type: application/json
