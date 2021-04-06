@@ -14,10 +14,10 @@ class MP:
     name: str
     constituency: str
     caucus: str
-    salaries: str
-    total_travel: str
-    total_hospitality: str
-    total_contracts: str
+    salaries: float
+    total_travel: float
+    total_hospitality: float
+    total_contracts: float
     member_id: str
     travel = None
     hospitality = None
@@ -47,20 +47,31 @@ def __extract_id_from_row(row):
     return row.find('a').get('href').split('/')[-1].strip()
 
 
+def currency_string_to_float(string):
+    return float(string.replace('$', '').replace(',', '').strip())
+
+
+def format_name(name):
+    last_name, first_name = name.split(',')
+    first_name = first_name.replace('Hon. ', '')
+    return f'{first_name.strip()} {last_name.strip()}'
+
+
 def fetch_members_local(path, output_dict=False):
     mps = []
     manifest = {}
-    with open(path, 'r') as fd:
+    with open(path, encoding='UTF-8') as fd:
         html = fd.read()
         soup = BeautifulSoup(html, features="html.parser")
         rows = soup.find_all(class_='expenses-main-info')
         for row in rows:
             member_id = __extract_id_from_row(row)
-            data = [i.text.replace('\n', '').strip() for i in row.find_all('td')]
-            data.append(member_id)
-            mp = MP(*data)
-            mps.append(mp)
-            manifest[mp.name] = mp
+            name, constituency, caucus, salary, total_travel, total_hospitality, total_contract = [i.text.replace('\n', '').strip() for i in row.find_all('td')]
+            if name != 'Vacant':
+                mp = MP(format_name(name), constituency, caucus, currency_string_to_float(salary), currency_string_to_float(total_travel),
+                        currency_string_to_float(total_hospitality), currency_string_to_float(total_contract), member_id)
+                mps.append(mp)
+                manifest[mp.name] = mp
 
     if output_dict:
         return manifest

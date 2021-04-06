@@ -56,6 +56,7 @@ async def main():
     for i in mps:
         print(f"Gathering data on {i.name}")
         await get_single_mp_data(i)
+
     print("Done")
 
 if __name__ == '__main__':
