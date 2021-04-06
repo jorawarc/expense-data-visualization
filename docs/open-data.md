@@ -21,11 +21,11 @@ expense type = {hospitality, travel, contracts}
 
 ## Scripts
 
-name | purpose | notes
-:---: | :---: | :---:
-`data_collection.py` | asynchronously collect data and save as csv | _utf-8 to unicode conversion artifacts_
-`member_of_parliament.py` | definition of MP data structure | _NA_
-`data_cleaning.py` | structure data for json | utf-8 to unicode conversion artifacts
+name | purpose 
+:---: | :---: |
+`data_collection.py` | asynchronously collect data and save as csv 
+`member_of_parliament.py` | definition of MP data structure 
+`data_cleaning.py` | structure data for json 
 
 
 ## MongoDB Representation
@@ -33,9 +33,12 @@ name | purpose | notes
 MP {
     name: str,
     member id: str,
-    salaries: int,
+    salaries: float,
     constituency: str,
     caucus: str,
+    total_travel: float,
+    total_hospitality: float,
+    total_contracts: float,
     travel: list,
     hospitality: list,
     contracts: list,
