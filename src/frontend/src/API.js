@@ -38,4 +38,14 @@ const caucusTotal = async () => {
     }
 }
 
-export default fetch
+const topSpenders = async () => {
+    try {
+        const response = await client.get('/top-spenders')
+        return response.data
+    } catch (e) {
+        console.log(e)
+        return null
+    }
+}
+
+export default {service: {fetch, caucusAverage, caucusTotal, topSpenders}}

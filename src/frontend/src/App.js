@@ -1,42 +1,51 @@
 import React from "react";
-import UserInput from "./UserInput";
-import BarChartComponent from "./BarChartComponent";
-
-import fetch from './API'
-import ReactDOM from 'react-dom'
+import API from './API'
+import CardComponent from './CardComponent'
+import BarComponent from "./BarComponent";
+import './App.css';
 
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.setExpenses = this.setExpenses.bind(this)
-        this.state = {params: {}, data: {}};
+        this.state = {isLoaded: false};
     }
 
     componentDidMount() {
-        fetch({}, {}).then(async (data) => {
-            await this.setState({data: data})
-        })
+        this.fetchData()
     }
 
-    setExpenses(name, value) {
-        if (value) {
-            delete this.state["params"][name]
-        }
-        else {
-            this.state.params[name] = +value
-        }
-        this.setState(this.state, async () => {
-            const data = await fetch({}, this.state.params)
-            this.state.data = data
-            await this.setState(this.state)
-        })
+    fetchData = async () => {
+        const averageExpense = await API.service.caucusAverage();
+        const totalExpense = await API.service.caucusTotal();
+        const spenders = await API.service.topSpenders();
+        await this.setState({...this.state,
+            average: averageExpense,
+            total: totalExpense,
+            spenders: spenders,
+            isLoaded: true});
+        console.log(this.state);
     }
 
-    render() {
+    render(){
+        if (!this.state.isLoaded){
+            return <div>Loading...</div>
+        }
+
         return (
             <div>
+                <section className="top-level-info">
+                    <h1 className="top-title">Hello World!</h1>
+                    <p className="top-info">Horton nonsuch park ut ullamco clock tower. Fugiat irure aute. Epsom derby laboris dolor labore race clock tower salts exercitation horses. Derby day sint aute id. Velit downs dolor horses anim tempor. Derby ullamco duis. Nulla salts voluptate magna sunt consectetur nisi in ea hospitals consequat. Derby </p>
+                </section>
+                <CardComponent spenders={this.state.spenders} className='card-component'/>
+                <section className="charts">
+                    <BarComponent groups={this.state.total} className={"bar-chart"}/>
+                    <p>Horton nonsuch park ut ullamco clock tower. Fugiat irure aute. Epsom derby laboris dolor labore race clock tower salts exercitation horses. Derby day sint aute id. Velit downs dolor horses anim tempor.
+                        Derby ullamco duis. Nulla salts voluptate magna sunt consectetur nisi in ea hospitals consequat. Derby excepteur elit ea. Ewell horton consectetur proident epsom downs.
+                        Laborum velit dolor ea horses derby day eu veniam nisi. Sit officia eu fugiat in horse race laborum horses ea aute. Consectetur duis mollit dolor epsom salts laboris labore horses chantilly voluptate id. Enim velit excepteur. Race epsom downs sunt dolor dolore enim adipisicing commodo</p>
+                </section>
             </div>
-        );
+    );
     }
 }
 
