@@ -43,12 +43,12 @@ app.get('/top-spenders', async (req, res) => {
                 {
                     "$project": {
                         'name': '$name',
-                        'caucus': '$caucus',
-                        'total_expense': {'$add': ['$total_hospitality', '$total_contracts', '$total_travel']}
+                        'constituency': '$constituency',
+                        'total_expense' : {'$round': [{'$add': ['$total_hospitality', '$total_contracts', '$total_travel']}, 2]}
                     }
                 }
             ]).sort({'total_expense': -1}).limit(3)
-            spenders.push({[caucus]: spender})
+            spenders.push({spenders: spender, caucus: caucus})
         }
         res.json(spenders);
 
@@ -94,6 +94,22 @@ app.get('/sum-group', async (req, res) => {
     } catch (e) {
         console.log(e);
         res.status(400).json({"error": e.message, "payload": {...req.body}});
+    }
+})
+
+
+app.get('/fetch-transactions', async (req, res) => {
+    try {
+        const transactions = MP.aggregate([
+            {'$project': {
+                'travel': '$travel'
+                }
+            }
+        ])
+        res.json(transactions)
+
+    } catch (e) {
+        res.status(400).json({"error": e.message, "payload": req.body})
     }
 })
 
