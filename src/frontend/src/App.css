@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@100;300&display=swap');
+
+:root{
+    --l0: #000000;
+    --l1: #212121;
+    --l2: #303030;
+    --l3: #424242;
+
+    --primary-text: #FFFFFFFF;
+    --secondary-text: #bebebe;
+    --disabled-text: #444444;
+
+    --divider: #878683;
+    --accent-colour: #91fff5;
+    /*--accent-colour: #f6c90e;*/
+}
+
+body{
+    font-family: 'Fira Sans', sans-serif;;
+    background-color: var(--l1);
+    padding: 0;
+    margin: 0;
+}
+
+.top-level-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--accent-colour);
+}
+
+.top-title{
+    font-size: 200px;
+    padding-top: 120px;
+    margin: 0;
+}
+
+.top-info{
+    font-size: 15px;
+    width: 500px;
+    color: var(--secondary-text);
+    padding-bottom: 50px;
+    margin: 0;
+}
+
+.card-list{
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.card{
+    font-size: 11px;
+
+    flex-direction: column;
+    position: relative;
+    color: var(--secondary-text);
+    margin: 0.25rem;
+    padding: 0.5rem;
+    width: 200px;
+    height: 220px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 17px var(--l0);
+
+    background: var(--l2);
+}
+
+.card-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--accent-colour);
+}
+
+.card-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    padding: 0;
+    margin: 0;
+}
+
+.charts{
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    grid-template-rows: auto 1fr;
+    column-gap: 0;
+    place-items: center;
+    font-size: 15px;
+    padding: 0;
+    margin: 0;
+    color: var(--secondary-text);
+}
+
+.bar-chart{
+    padding-left: 2000px;
+}
