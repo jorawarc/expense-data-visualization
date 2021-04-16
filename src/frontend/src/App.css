@@ -82,7 +82,7 @@ body{
     margin: 0;
 }
 
-.charts{
+.bar-section{
     display: grid;
     grid-template-columns: 1.5fr 1fr;
     grid-template-rows: auto 1fr;
@@ -96,4 +96,14 @@ body{
 
 .bar-chart{
     padding-left: 2000px;
+}
+
+.time-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-text {
+    color: var(--secondary-text);
+    padding: 3.5rem;
 }
