@@ -25,3 +25,9 @@ Content-Type: application/json
 
 GET http://localhost:3000/sum-group
 Content-Type: application/json
+
+###
+
+
+GET http://localhost:3000/fetch-transactions
+Content-Type: application/json

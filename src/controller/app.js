@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
 const MP = require('./models/Member');
+const async = require('async');
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -99,18 +100,16 @@ app.get('/sum-group', async (req, res) => {
 
 
 app.get('/fetch-transactions', async (req, res) => {
-    try {
-        const transactions = MP.aggregate([
-            {'$project': {
-                'travel': '$travel'
-                }
-            }
-        ])
-        res.json(transactions)
-
-    } catch (e) {
+    Promise.all([
+        MP.aggregate([{$unwind: '$travel'}, {$match: {"travel.Total": {$gt: 0}}}, {$project: {_id: 0, total: "$travel.Total", date: "$travel.Travel start date"}}, {$group: {_id: "$date", total: {$avg: "$total"}}}]),
+        MP.aggregate([{$unwind: '$hospitality'}, {$match: {"hospitality.Total": {$gt: 0}}}, {$project: {_id: 0, total: "$hospitality.Total", date: "$hospitality.Date"}}, {$group: {_id: "$date", total: {$avg: "$total"}}}]),
+        MP.aggregate([{$unwind: '$contract'}, {$match: {"contract.Total": {$gt: 0}}}, {$project: {_id: 0, total: "$contract.Total", date: "$contract.Date"}}, {$group: {_id: "$date", total: {$avg: "$total"}}}])
+    ]).then(([travel, hospitality, contract]) => {
+        res.json({travel: travel, hospitality: hospitality, contract: contract})
+    }).catch((e) => {
+        console.log(e)
         res.status(400).json({"error": e.message, "payload": req.body})
-    }
+    })
 })
 
 
