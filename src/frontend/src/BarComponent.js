@@ -14,7 +14,6 @@ class BarComponent extends React.Component {
             const x = data.map((data, index) => {
                 return {x: data._id, y: data[key], total: data.total_contracts + data.total_travel + data.total_hospitality};
             })
-            console.log(data)
             return <VictoryBar data={x} sortOrder="ascending" sortKey='total'/>;
         }
 

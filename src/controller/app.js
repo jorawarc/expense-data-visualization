@@ -122,12 +122,11 @@ app.get('/sum-total', async (req, res) => {
             {
                 $project: {
                     _id: 0,
-                    total : "$total"
                 }
             }]
     )
 
-        res.json(total);
+        res.json(total[0]["total"]);
     } catch (e) {
         console.log(e)
         res.status(400).json({"error": e.message, "payload": req.body})

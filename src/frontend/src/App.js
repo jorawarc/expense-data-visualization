@@ -20,13 +20,16 @@ class App extends React.Component {
             API.service.caucusAverage(),
             API.service.caucusTotal(),
             API.service.topSpenders(),
-            API.service.transactions()
-        ]).then(async ([averageExpense, totalExpense, spenders, transactions]) => {
+            API.service.transactions(),
+            API.service.totalSum()
+        ]).then(async ([averageExpense, totalExpense, spenders, transactions, totalSum]) => {
+            console.log(totalSum)
             await this.setState({...this.state,
                 average: averageExpense,
                 total: totalExpense,
                 spenders: spenders,
                 transactions: transactions,
+                totalSum: totalSum,
                 isLoaded: true});
         })
     }
@@ -36,6 +39,7 @@ class App extends React.Component {
     }
 
     render(){
+        const formatter = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 2})
         if (!this.state.isLoaded){
             return <h1 className="top-title">Loading...</h1>
         }
@@ -43,7 +47,7 @@ class App extends React.Component {
         return (
             <div>
                 <section className="top-level-info">
-                    <h1 className="top-title">Hello World!</h1>
+                    <h1 className="top-title">{formatter.format(this.state.totalSum)}</h1>
                     <p className="top-info"> A data visualization project showcasing Canadian Parliamentary Members expenses paid for by the Tax Payer. Expenses are broken down into three categories: {this.textStyle("Contracts", "tomato")}, {this.textStyle("Travel", "orange")}, and {this.textStyle("Hospitality", "gold")} </p>
                 </section>
                 <CardComponent spenders={this.state.spenders} className='card-component'/>
