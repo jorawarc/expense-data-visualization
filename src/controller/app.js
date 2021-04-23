@@ -112,6 +112,29 @@ app.get('/fetch-transactions', async (req, res) => {
     })
 })
 
+app.get('/sum-total', async (req, res) => {
+    try{
+        const total = await MP.aggregate([{
+            $group: {
+                _id: null,
+                "total": {$sum: {$add: ["$total_travel", "$total_contracts", "$total_hospitality"]}}
+            }},
+            {
+                $project: {
+                    _id: 0,
+                    total : "$total"
+                }
+            }]
+    )
+
+        res.json(total);
+    } catch (e) {
+        console.log(e)
+        res.status(400).json({"error": e.message, "payload": req.body})
+    }
+
+})
+
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);

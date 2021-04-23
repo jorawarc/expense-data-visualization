@@ -31,3 +31,10 @@ Content-Type: application/json
 
 GET http://localhost:3000/fetch-transactions
 Content-Type: application/json
+
+
+###
+
+
+GET http://localhost:3000/sum-total
+Content-Type: application/json
