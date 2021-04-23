@@ -1,5 +1,5 @@
 import React from "react";
-import {VictoryChart, VictoryGroup, VictoryStack, VictoryBar, VictoryAxis, VictoryLegend} from 'victory'
+import {VictoryChart, VictoryGroup, VictoryStack, VictoryBar, VictoryAxis, VictoryLabel} from 'victory'
 
 
 class BarComponent extends React.Component {
@@ -29,19 +29,14 @@ class BarComponent extends React.Component {
         }
         return (
             <VictoryChart height={250} horizontal className="expense-chart" padding={{top: 75, bottom: 75, left: 85, right: 45}}>
-                <VictoryLegend title="Expenditures by Caucus" orientation="horizontal" centerTitle x={95} y={35}
-                               data={[
-                                   {name: "contracts", symbol: {fill: "tomato"}},
-                                   {name: "travel", symbol: {fill: "orange"}},
-                                   {name: "hospitality", symbol: {fill: "gold"}}]}
-                               style={{title: {fontSize: 15, fill: '#FFFFFFFF', padding: -2}, labels: {fill: "#bebebe", fontSize: 7}}}
-                />
+                <VictoryLabel text="Expenditures by Caucus" x={225} y={50} textAnchor="middle" style={{fill: "#FFFFFFFF"}}/>
+
                 <VictoryAxis style={style}/>
                 <VictoryAxis dependentAxis style={style} label={"Canadian Dollars"}/>
 
                 <VictoryGroup style={{data: {width: 10}}}>
-                    <VictoryStack colorScale={["tomato", "orange", "gold"]} animate={{
-                        duration: 2000,
+                    <VictoryStack colorScale={["tomato", "orange", "gold"]} title={"Expenditures by Caucus"} animate={{
+                        duration: 1500,
                         onLoad: { duration: 1000 }
                     }}>
                         {generateBars(this.props.groups, "total_contracts")}

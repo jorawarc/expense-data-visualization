@@ -31,16 +31,20 @@ class App extends React.Component {
         })
     }
 
+    textStyle(text, color) {
+        return <span style={{color: color}}>{text}</span>
+    }
+
     render(){
         if (!this.state.isLoaded){
-            return <div>Loading...</div>
+            return <h1 className="top-title">Loading...</h1>
         }
 
         return (
             <div>
                 <section className="top-level-info">
                     <h1 className="top-title">Hello World!</h1>
-                    <p className="top-info">Horton nonsuch park ut ullamco clock tower. Fugiat irure aute. Epsom derby laboris dolor labore race clock tower salts exercitation horses. Derby day sint aute id. Velit downs dolor horses anim tempor. Derby ullamco duis. Nulla salts voluptate magna sunt consectetur nisi in ea hospitals consequat. Derby </p>
+                    <p className="top-info"> A data visualization project showcasing Canadian Parliamentary Members expenses paid for by the Tax Payer. Expenses are broken down into three categories: {this.textStyle("Contracts", "tomato")}, {this.textStyle("Travel", "orange")}, and {this.textStyle("Hospitality", "gold")} </p>
                 </section>
                 <CardComponent spenders={this.state.spenders} className='card-component'/>
                 <section className="bar-section">

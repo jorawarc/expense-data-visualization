@@ -1,5 +1,13 @@
 import React from "react";
-import {VictoryChart, VictoryZoomContainer, VictoryLine, VictoryBrushContainer, VictoryAxis, VictoryLegend} from 'victory'
+import {
+    VictoryChart,
+    VictoryZoomContainer,
+    VictoryLine,
+    VictoryBrushContainer,
+    VictoryAxis,
+    VictoryLegend,
+    VictoryLabel
+} from 'victory'
 
 
 class TimeChartComponent extends React.Component {
@@ -30,7 +38,12 @@ class TimeChartComponent extends React.Component {
         const hospitality = this.props.data.hospitality.map(this.convertToDate);
         const contract = this.props.data.contract.map(this.convertToDate);
         return (
-            <VictoryChart width={700} height={220} scale={{x: "time"}}>
+            <VictoryChart width={700} height={220} scale={{x: "time"}} animate={{
+                duration: 1500,
+                onLoad: { duration: 1000 }
+            }}>
+                <VictoryLabel text="Expenditures over Time" x={350} y={25} textAnchor="middle" style={{fill: "#FFFFFFFF"}}/>
+
                 <VictoryAxis style={style} tickFormat={(x) => `${x.toLocaleString('default', { month: 'short' })} ${x.getFullYear()}`}/>
                 <VictoryAxis style={style} dependentAxis/>
                 <VictoryLine style={{data: {stroke: "orange"}}} data={travel} x="date" y="total"/>
