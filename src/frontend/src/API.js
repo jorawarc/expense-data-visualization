@@ -8,6 +8,18 @@ const client = axios.create({
     responseType: "json",
 });
 
+const standardGETGenerator = (endpoint) => {
+    return async function () {
+        try {
+            const response = await client.get(endpoint)
+            return response.data
+        } catch (e) {
+            console.log(e)
+            return null
+        }
+    }
+}
+
 const fetch = async (filter, expense) => {
     try {
         const response = await client.post('/fetch', {filter: filter, expense: expense})
@@ -18,45 +30,11 @@ const fetch = async (filter, expense) => {
     }
 }
 
-const caucusAverage = async () => {
-    try {
-        const response = await client.get('/avg-group')
-        return response.data
-    } catch (e) {
-        console.log(e)
-        return null
-    }
-}
+const caucusAverage = standardGETGenerator('/avg-group');
+const caucusTotal = standardGETGenerator('/sum-group');
+const topSpenders = standardGETGenerator('/top-spenders');
+const transactions = standardGETGenerator('/fetch-transactions');
+const totalSum = standardGETGenerator('/sum-total');
 
-const caucusTotal = async () => {
-    try {
-        const response = await client.get('/sum-group')
-        return response.data
-    } catch (e) {
-        console.log(e)
-        return null
-    }
-}
 
-const topSpenders = async () => {
-    try {
-        const response = await client.get('/top-spenders')
-        return response.data
-    } catch (e) {
-        console.log(e)
-        return null
-    }
-}
-
-const transactions = async () => {
-    try {
-        const response = await client.get('/fetch-transactions')
-        console.log(response)
-        return response.data
-    } catch (e) {
-        console.log(e)
-        return null
-    }
-}
-
-export default {service: {fetch, caucusAverage, caucusTotal, topSpenders, transactions}}
+export default {service: {fetch, caucusAverage, caucusTotal, topSpenders, transactions, totalSum}}
