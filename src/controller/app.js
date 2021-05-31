@@ -26,7 +26,7 @@ mongoose.connect(
 app.post('/fetch', async (req, res) => {
     console.log(req.body);
     try {
-        const mp = await MP.find(req.body.filter, {...req.body.expense, "member_id": 0});
+        const mp = await MP.findOne({_id: req.body.value});
         res.json(mp);
     } catch (e) {
         console.log(e);
@@ -45,7 +45,7 @@ app.get('/top-spenders', async (req, res) => {
                     "$project": {
                         'name': '$name',
                         'constituency': '$constituency',
-                        'total_expense' : {'$round': [{'$add': ['$total_hospitality', '$total_contracts', '$total_travel']}, 2]}
+                        'total_expense' : {'$round': [{'$add': ['$total_hospitality', '$total_contracts', '$total_travel', '$salaries']}, 2]}
                     }
                 }
             ]).sort({'total_expense': -1}).limit(3)
@@ -87,7 +87,8 @@ app.get('/sum-group', async (req, res) => {
                     _id: '$caucus',
                     total_travel: {$sum: "$total_travel"},
                     total_contracts: {$sum: "$total_contracts"},
-                    total_hospitality: {$sum: "$total_hospitality"}
+                    total_hospitality: {$sum: "$total_hospitality"},
+                    total_salaries: {$sum: "$salaries"}
                 }
             }
         ]);
@@ -117,7 +118,7 @@ app.get('/sum-total', async (req, res) => {
         const total = await MP.aggregate([{
             $group: {
                 _id: null,
-                "total": {$sum: {$add: ["$total_travel", "$total_contracts", "$total_hospitality"]}}
+                "total": {$sum: {$add: ["$total_travel", "$total_contracts", "$total_hospitality", "$salaries"]}}
             }},
             {
                 $project: {
@@ -134,6 +135,17 @@ app.get('/sum-total', async (req, res) => {
 
 })
 
+
+app.get('/members', async (req, res) => {
+    try{
+        const members = await MP.find({}, {"name": "$name", "value": "$_id", "constituency": "$constituency", _id:0})
+        res.json(members)
+    } catch (e) {
+        console.log(e)
+        res.status(400).json({"error": e.message, "payload": req.body})
+    }
+
+})
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);

@@ -3,9 +3,7 @@ POST http://localhost:3000/fetch
 Content-Type: application/json
 
 {
-  "filter": {},
-  "expense": {"contract":  0}
-
+"value": "606ce976d848903a64794962"
 }
 
 ###
@@ -37,4 +35,11 @@ Content-Type: application/json
 
 
 GET http://localhost:3000/sum-total
+Content-Type: application/json
+
+
+###
+
+
+GET http://localhost:3000/members
 Content-Type: application/json
