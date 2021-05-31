@@ -72,7 +72,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--accent-colour);
+    color: var(--primary-text);
 }
 
 .card-content{
@@ -95,6 +95,11 @@ body{
     color: var(--secondary-text);
 }
 
+.hist-section{
+    display: flex;
+    flex-direction: row;
+}
+
 .bar-chart{
     padding-left: 2000px;
 }
@@ -107,4 +112,9 @@ body{
 .info-text {
     color: var(--secondary-text);
     padding: 3.5rem;
+}
+
+.search-section {
+    display: flex;
+    justify-content: center;
 }

@@ -3,6 +3,8 @@ import API from './API'
 import CardComponent from './CardComponent'
 import BarComponent from "./BarComponent";
 import TimeChartComponent from './TimeChartComponent'
+import HistogramComponent from "./HistogramComponent";
+import SearchComponent from "./SearchComponent";
 import './App.css';
 
 class App extends React.Component {
@@ -21,15 +23,16 @@ class App extends React.Component {
             API.service.caucusTotal(),
             API.service.topSpenders(),
             API.service.transactions(),
-            API.service.totalSum()
-        ]).then(async ([averageExpense, totalExpense, spenders, transactions, totalSum]) => {
-            console.log(totalSum)
+            API.service.totalSum(),
+            API.service.members()
+        ]).then(async ([averageExpense, totalExpense, spenders, transactions, totalSum, members]) => {
             await this.setState({...this.state,
                 average: averageExpense,
                 total: totalExpense,
                 spenders: spenders,
                 transactions: transactions,
                 totalSum: totalSum,
+                members: members,
                 isLoaded: true});
         })
     }
@@ -48,7 +51,7 @@ class App extends React.Component {
             <div>
                 <section className="top-level-info">
                     <h1 className="top-title">{formatter.format(this.state.totalSum)}</h1>
-                    <p className="top-info"> A data visualization project showcasing Canadian Parliamentary Members expenses paid for by the Tax Payer. Expenses are broken down into three categories: {this.textStyle("Contracts", "tomato")}, {this.textStyle("Travel", "orange")}, and {this.textStyle("Hospitality", "gold")} </p>
+                    <p className="top-info"> A data exploration project showcasing Canadian Parliamentary Members expenses paid for by the Tax Payer. Expenses are broken down into four categories: {this.textStyle("Contracts", "tomato")}, {this.textStyle("Travel", "orange")}, {this.textStyle("Hospitality", "gold")}, and {this.textStyle("Salaries", "#91fff5")} </p>
                 </section>
                 <CardComponent spenders={this.state.spenders} className='card-component'/>
                 <section className="bar-section">
@@ -62,6 +65,24 @@ class App extends React.Component {
                     <p className={"info-text"}>Horton nonsuch park ut ullamco clock tower. Fugiat irure aute. Epsom derby laboris dolor labore race clock tower salts exercitation horses. Derby day sint aute id. Velit downs dolor horses anim tempor.
                         Derby ullamco duis. Nulla salts voluptate magna sunt consectetur nisi in ea hospitals consequat. Derby excepteur elit ea. Ewell horton consectetur proident epsom downs.
                         Laborum velit dolor ea</p>
+                </section>
+                <section className={"hist-section"}>
+                    <HistogramComponent data={this.state.transactions.contract} color={"tomato"} bins={12} title={"Contract Transactions"}/>
+                    <HistogramComponent data={this.state.transactions.travel} color={"orange"} title={"Travel Transactions"}/>
+                    <HistogramComponent data={this.state.transactions.hospitality} color={"gold"} title={"Hospitality Transactions"}/>
+                </section>
+                <p className={"info-text"}>Horton nonsuch park ut ullamco clock tower. Fugiat irure aute. Epsom derby laboris dolor labore race clock tower salts exercitation horses. Derby day sint aute id. Velit downs dolor horses anim tempor.
+                    Derby ullamco duis. Nulla salts voluptate magna sunt consectetur nisi in ea hospitals consequat. Derby excepteur elit ea. Ewell horton consectetur proident epsom downs.
+                    Laborum velit dolor ea</p>
+                <section className={"search-section"}>
+                    <SearchComponent class={"search"} data={this.state.members}/>
+                </section>
+                <section className={"info-text"}>
+                    <p>
+                        Horton nonsuch park ut ullamco clock tower. Fugiat irure aute. Epsom derby laboris dolor labore race clock tower salts exercitation horses. Derby day sint aute id. Velit downs dolor horses anim tempor.
+                        Derby ullamco duis. Nulla salts voluptate magna sunt consectetur nisi in ea hospitals consequat. Derby excepteur elit ea. Ewell horton consectetur proident epsom downs.
+                        Laborum velit dolor ea
+                    </p>
                 </section>
             </div>
     );

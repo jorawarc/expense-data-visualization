@@ -20,9 +20,9 @@ const standardGETGenerator = (endpoint) => {
     }
 }
 
-const fetch = async (filter, expense) => {
+const fetch = async (id) => {
     try {
-        const response = await client.post('/fetch', {filter: filter, expense: expense})
+        const response = await client.post('/fetch', {value: id})
         return response.data
     } catch (e) {
         console.log(e)
@@ -35,6 +35,7 @@ const caucusTotal = standardGETGenerator('/sum-group');
 const topSpenders = standardGETGenerator('/top-spenders');
 const transactions = standardGETGenerator('/fetch-transactions');
 const totalSum = standardGETGenerator('/sum-total');
+const members = standardGETGenerator('/members');
 
 
-export default {service: {fetch, caucusAverage, caucusTotal, topSpenders, transactions, totalSum}}
+export default {service: {fetch, caucusAverage, caucusTotal, topSpenders, transactions, totalSum, members}}

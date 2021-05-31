@@ -34,10 +34,11 @@ class BarComponent extends React.Component {
                 <VictoryAxis dependentAxis style={style} label={"Canadian Dollars"}/>
 
                 <VictoryGroup style={{data: {width: 10}}}>
-                    <VictoryStack colorScale={["tomato", "orange", "gold"]} title={"Expenditures by Caucus"} animate={{
+                    <VictoryStack colorScale={["#91fff5", "tomato", "orange", "gold"]} title={"Expenditures by Caucus"} animate={{
                         duration: 1500,
                         onLoad: { duration: 1000 }
                     }}>
+                        {generateBars(this.props.groups, "total_salaries")}
                         {generateBars(this.props.groups, "total_contracts")}
                         {generateBars(this.props.groups, "total_travel")}
                         {generateBars(this.props.groups, "total_hospitality")}

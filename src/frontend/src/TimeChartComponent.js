@@ -1,11 +1,8 @@
 import React from "react";
 import {
     VictoryChart,
-    VictoryZoomContainer,
     VictoryLine,
-    VictoryBrushContainer,
     VictoryAxis,
-    VictoryLegend,
     VictoryLabel
 } from 'victory'
 
