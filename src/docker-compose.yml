@@ -17,6 +17,19 @@ services:
       - "MONGO_URI=mongo"
       - "PORT=3000"
     command: "npm start"
+  frontend:
+    image: "node:14.15.0"
+    container_name: "reactjs"
+    user: "node"
+    working_dir: /home/node/app
+    depends_on:
+      - database
+    restart: always
+    volumes:
+      - ./frontend:/home/node/app
+    ports:
+      - "80:1234"
+    command: "npm start"
   database:
     image: "mongo:latest"
     restart: always
