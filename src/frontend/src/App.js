@@ -51,37 +51,33 @@ class App extends React.Component {
             <div>
                 <section className="top-level-info">
                     <h1 className="top-title">{formatter.format(this.state.totalSum)}</h1>
-                    <p className="top-info"> A data exploration project showcasing Canadian Parliamentary Members expenses paid for by the Tax Payer. Expenses are broken down into four categories: {this.textStyle("Contracts", "tomato")}, {this.textStyle("Travel", "orange")}, {this.textStyle("Hospitality", "gold")}, and {this.textStyle("Salaries", "#91fff5")} </p>
+                    <p className="top-info"> A data exploration project showcasing Canadian Parliamentary Members expenses paid for by the Tax Payer. Expenses are broken down into four categories: {this.textStyle("Contracts", "tomato")}, {this.textStyle("Travel", "orange")}, {this.textStyle("Hospitality", "gold")}, and {this.textStyle("Salaries", "#91fff5")}. (Last Updated 2021 Q2)</p>
                 </section>
                 <CardComponent spenders={this.state.spenders} className='card-component'/>
                 <section className="bar-section">
                     <BarComponent groups={this.state.total} className={"bar-chart"}/>
-                    <p className={"info-text"}>Horton nonsuch park ut ullamco clock tower. Fugiat irure aute. Epsom derby laboris dolor labore race clock tower salts exercitation horses. Derby day sint aute id. Velit downs dolor horses anim tempor.
-                        Derby ullamco duis. Nulla salts voluptate magna sunt consectetur nisi in ea hospitals consequat. Derby excepteur elit ea. Ewell horton consectetur proident epsom downs.
-                        Laborum velit dolor ea horses derby day eu veniam nisi. Sit officia eu fugiat in horse race laborum horses ea aute. Consectetur duis mollit dolor epsom salts laboris labore horses chantilly voluptate id. Enim velit excepteur. Race epsom downs sunt dolor dolore enim adipisicing commodo</p>
+                    <p className={"info-text"}>{this.textStyle("Salaries", "#91fff5")} account for the majority of expenditures. As the Liberal Caucus holds a larger portion of parliament, they proportionally have a larger expenditure of salaries.<br/>
+                        {this.textStyle("Contract", "tomato")} expenses account for the second largest expenditure. These expenses include a variety of transactions, everything related to advertising, office supplies, cellphone plans, etc.<br/>
+                        {this.textStyle("Travel", "orange")} and {this.textStyle("Hospitality", "gold")} expenses make up the smallest portion of expenses across all members.
+                    </p>
                 </section>
                 <section className={"time-section"}>
                     <TimeChartComponent data={this.state.transactions}/>
-                    <p className={"info-text"}>Horton nonsuch park ut ullamco clock tower. Fugiat irure aute. Epsom derby laboris dolor labore race clock tower salts exercitation horses. Derby day sint aute id. Velit downs dolor horses anim tempor.
-                        Derby ullamco duis. Nulla salts voluptate magna sunt consectetur nisi in ea hospitals consequat. Derby excepteur elit ea. Ewell horton consectetur proident epsom downs.
-                        Laborum velit dolor ea</p>
+                    <p className={"info-text"}>Given the <em>hockey stick</em> chart below, we see the vast majority of expense occur mid-pandemic. Most of these contract expenses appear to be related to home improvement activities.
+                        Likely the result of parliament members needing to implement a suitable remote work station. Surprisingly, travel expenses are increasing despite federal and provincial restrictions, reaching a quarterly high. </p>
                 </section>
                 <section className={"hist-section"}>
                     <HistogramComponent data={this.state.transactions.contract} color={"tomato"} bins={12} title={"Contract Transactions"}/>
                     <HistogramComponent data={this.state.transactions.travel} color={"orange"} title={"Travel Transactions"}/>
                     <HistogramComponent data={this.state.transactions.hospitality} color={"gold"} title={"Hospitality Transactions"}/>
                 </section>
-                <p className={"info-text"}>Horton nonsuch park ut ullamco clock tower. Fugiat irure aute. Epsom derby laboris dolor labore race clock tower salts exercitation horses. Derby day sint aute id. Velit downs dolor horses anim tempor.
-                    Derby ullamco duis. Nulla salts voluptate magna sunt consectetur nisi in ea hospitals consequat. Derby excepteur elit ea. Ewell horton consectetur proident epsom downs.
-                    Laborum velit dolor ea</p>
+                <p className={"info-text"}>The frequency of each expense category is proportional to the overall expenditure. As {this.textStyle("contract", "tomato")} expenses account for the vast majority of expenses, they expectedly occur twice as often as {this.textStyle("travel", "orange")} expenses and ten times as often as {this.textStyle("hospitality", "gold")} expenses.</p>
                 <section className={"search-section"}>
                     <SearchComponent class={"search"} data={this.state.members}/>
                 </section>
                 <section className={"info-text"}>
                     <p>
-                        Horton nonsuch park ut ullamco clock tower. Fugiat irure aute. Epsom derby laboris dolor labore race clock tower salts exercitation horses. Derby day sint aute id. Velit downs dolor horses anim tempor.
-                        Derby ullamco duis. Nulla salts voluptate magna sunt consectetur nisi in ea hospitals consequat. Derby excepteur elit ea. Ewell horton consectetur proident epsom downs.
-                        Laborum velit dolor ea
+                        The project uses data from <a style={{color: "#bebebe"}} href={"https://www.ourcommons.ca/en/open-data#ExpendituresMembers"}> ourcommons.ca </a> which is then process and displayed using a dockerized MERN stack. The full code-base, documentation and dataset can be found on <a style={{color: "#bebebe"}} href={"https://github.com/jorawarc/expense-data-visualization"}>Github.</a>
                     </p>
                 </section>
             </div>
