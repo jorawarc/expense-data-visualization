@@ -7,18 +7,26 @@ Node JS backend controller acting as processing intermediary for the mongodb
 POST /fetch
 
 {
-   filter: {caucus: [red, blue, green, ...], _id: [member...]},
-   expense: {hospitality: 0, travel: 0 ...} // excludes feilds
+    value: mp_id
 }
 
 Response
 {
-    [
-        {MP: ...}, 
-        {MP: ...}, ... 
-    ]
+    {MP Object}
 }
 ```
+
+```
+GET /top-spenders
+
+Response
+{
+    cacus: {{spender}, {spender}, {spender}} # sort desc
+    ...
+}
+
+```
+
 
 ```
 GET /sum-group
@@ -27,10 +35,10 @@ Response
 {
   [
     {
-        "_id": cacaus,
-        "total_travel": float,
-        "total_contracts": float,
-        "total_hospitality": float
+        _id: cacaus,
+        total_travel,
+        total_contracts,
+        total_hospitality
     }, ...
   ]
 }
@@ -43,11 +51,41 @@ Response
 {
   [
     {
-        "_id": cacaus,
-        "avg_travel": float,
-        "avg_contracts": float,
-        "avg_hospitality": float
+        _id: cacaus,
+        avg_travel,
+        avg_contracts,
+        avg_hospitality
     }, ...
   ]
 }
+```
+
+```
+GET /fetch-transactions
+
+Response
+{
+    travel: [{date, total}, ...],
+    hospitality: [...],
+    contract: [...]
+}
+```
+
+```
+GET /sum-total
+
+Response
+{
+    total
+}
+```
+
+```
+GET /members
+
+Response
+{
+    [{name, value}, ...]
+}
+
 ```
