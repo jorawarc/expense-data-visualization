@@ -102,9 +102,9 @@ app.get('/sum-group', async (req, res) => {
 
 app.get('/fetch-transactions', async (req, res) => {
     Promise.all([
-        MP.aggregate([{$unwind: '$travel'}, {$match: {"travel.Total": {$gt: 0}}}, {$project: {_id: 0, total: "$travel.Total", date: "$travel.Travel start date"}}, {$group: {_id: "$date", total: {$avg: "$total"}}}]),
-        MP.aggregate([{$unwind: '$hospitality'}, {$match: {"hospitality.Total": {$gt: 0}}}, {$project: {_id: 0, total: "$hospitality.Total", date: "$hospitality.Date"}}, {$group: {_id: "$date", total: {$avg: "$total"}}}]),
-        MP.aggregate([{$unwind: '$contract'}, {$match: {"contract.Total": {$gt: 0}}}, {$project: {_id: 0, total: "$contract.Total", date: "$contract.Date"}}, {$group: {_id: "$date", total: {$avg: "$total"}}}])
+        MP.aggregate([{$unwind: '$travel'}, {$match: {"travel.Total": {$gt: 0}}}, {$project: {_id: 0, total: "$travel.Total", date: "$travel.Travel start date"}}, {$group: {_id: "$date", total: {$sum: "$total"}}}]),
+        MP.aggregate([{$unwind: '$hospitality'}, {$match: {"hospitality.Total": {$gt: 0}}}, {$project: {_id: 0, total: "$hospitality.Total", date: "$hospitality.Date"}}, {$group: {_id: "$date", total: {$sum: "$total"}}}]),
+        MP.aggregate([{$unwind: '$contract'}, {$match: {"contract.Total": {$gt: 0}}}, {$project: {_id: 0, total: "$contract.Total", date: "$contract.Date"}}, {$group: {_id: "$date", total: {$sum: "$total"}}}])
     ]).then(([travel, hospitality, contract]) => {
         res.json({travel: travel, hospitality: hospitality, contract: contract})
     }).catch((e) => {
