@@ -13,3 +13,6 @@ The is hosted on a GCP instance (currently offline). \
 To run the visualization locally, docker-compose is recommended:
 `docker-compose up -d` \
 _Note: you must import the `data.json` file manually_
+
+
+![screenshot](screenshot.png)
